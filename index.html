@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- TROQUE "SEU NOME" pelo seu nome (requisito da atividade) -->
+  <title>Gato Astronauta – SEU NOME</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main id="jogo">
+
+    <header class="placar">
+      <div class="placar-item">⭐ <span id="pontos">0</span></div>
+      <h1>Gato Astronauta</h1>
+      <div class="placar-item" id="vidas" aria-label="Vidas">❤️❤️❤️</div>
+    </header>
+
+    <section id="cenario">
+      <div class="planeta"></div>
+
+      <div class="frota">
+        <div class="inimigo"></div><div class="inimigo"></div><div class="inimigo"></div><div class="inimigo"></div><div class="inimigo"></div>
+        <div class="inimigo"></div><div class="inimigo"></div><div class="inimigo"></div><div class="inimigo"></div><div class="inimigo"></div>
+        <div class="inimigo"></div><div class="inimigo"></div><div class="inimigo"></div><div class="inimigo"></div><div class="inimigo"></div>
+      </div>
+
+      <div id="nave">
+        <div class="cabine"><div class="gato"></div></div>
+        <div class="corpo-nave"></div>
+        <div class="chama"></div>
+      </div>
+    </section>
+
+    <div class="controles">
+      <button type="button" id="btn-esq" aria-label="Esquerda">◀</button>
+      <button type="button" id="btn-atirar" class="atirar">Atirar</button>
+      <button type="button" id="btn-dir" aria-label="Direita">▶</button>
+    </div>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>

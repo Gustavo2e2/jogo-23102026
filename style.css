@@ -1,0 +1,193 @@
+/* ===== Paleta (mude aqui para deixar o jogo com a sua cara) ===== */
+:root {
+  --espaco-topo: #070720;
+  --espaco-base: #3b1f6e;
+  --pelo-gato: #f2b870;
+  --rato: #8d93a8;
+  --novelo: #8f5ff0;
+  --destaque: #ff5d73;
+  --moldura: #1a1a40;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 12px;
+  font-family: 'Fredoka', 'Trebuchet MS', sans-serif;
+  background: #0c0c24;
+}
+
+#jogo {
+  width: 100%;
+  max-width: 720px;
+  border: 6px solid var(--moldura);
+  border-radius: 22px;
+  overflow: hidden;
+  background: var(--moldura);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, .6);
+}
+
+/* ===== Placar ===== */
+.placar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 10px 18px;
+  color: #fff;
+}
+.placar h1 {
+  font-size: clamp(1rem, 3.5vw, 1.6rem);
+  color: var(--pelo-gato);
+  text-shadow: 0 3px 0 #7a4a14;
+}
+.placar-item { min-width: 90px; font-size: 1.3rem; font-weight: 700; }
+.placar-item:last-child { text-align: right; font-size: 1.1rem; }
+
+/* ===== Cenário ===== */
+#cenario {
+  position: relative;
+  height: clamp(380px, 85vw, 520px);
+  overflow: hidden;
+  background:
+    radial-gradient(1.5px 1.5px at 20px 30px, #fff, transparent),
+    radial-gradient(1px 1px at 90px 120px, #fff, transparent),
+    radial-gradient(2px 2px at 160px 60px, #ffe9a8, transparent),
+    linear-gradient(var(--espaco-topo), #1c1250 60%, var(--espaco-base));
+  background-size: 200px 160px, 200px 160px, 200px 160px, 100% 100%;
+  background-repeat: repeat, repeat, repeat, no-repeat;
+}
+
+.planeta {
+  position: absolute; bottom: -90px; right: -70px;
+  width: 260px; height: 260px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #ffb27a, #c2456b 60%, #5e1f55);
+  box-shadow: 0 0 60px rgba(255, 130, 120, .35);
+}
+
+/* ===== Inimigos: ratos espaciais ===== */
+.frota {
+  position: absolute; top: 26px; left: 50%;
+  transform: translateX(-50%);
+  display: grid;
+  grid-template-columns: repeat(5, 46px);
+  gap: 22px 16px;
+}
+.inimigo {
+  position: relative;
+  width: 46px; height: 34px;
+  border-radius: 20px 20px 14px 14px;
+  background:
+    radial-gradient(circle at 30% 50%, var(--destaque) 3px, transparent 4px),
+    radial-gradient(circle at 70% 50%, var(--destaque) 3px, transparent 4px),
+    var(--rato);
+  animation: balancar 2s ease-in-out infinite alternate;
+}
+.inimigo::before, .inimigo::after {
+  content: ''; position: absolute; top: -9px;
+  width: 17px; height: 17px;
+  border-radius: 50%;
+  background: var(--rato);
+  border: 3px solid #f5b5c6;
+}
+.inimigo::before { left: 1px; }
+.inimigo::after  { right: 1px; }
+.inimigo:nth-child(even) { animation-delay: -1s; }
+@keyframes balancar { to { transform: translateY(8px); } }
+
+/* ===== Novelo de lã (tiro) ===== */
+.novelo {
+  position: absolute;
+  width: 18px; height: 18px;
+  margin-left: -9px;
+  border-radius: 50%;
+  border: 2px solid #5a33a8;
+  background:
+    repeating-linear-gradient(45deg, rgba(255, 255, 255, .35) 0 2px, transparent 2px 6px),
+    radial-gradient(circle at 35% 30%, #d9c2ff, var(--novelo) 65%);
+  box-shadow: 0 0 12px rgba(143, 95, 240, .8);
+}
+
+/* ===== Nave com o gato ===== */
+#nave {
+  position: absolute; bottom: 26px; left: 50%;
+  width: 64px; height: 78px;
+  margin-left: -32px;
+}
+.cabine {
+  position: absolute; top: 0; left: 10px; z-index: 2;
+  width: 44px; height: 44px;
+  display: grid; place-items: center;
+  border-radius: 50%;
+  border: 3px solid #d4f1ff;
+  background: rgba(150, 215, 255, .3);
+}
+.gato {
+  position: relative;
+  width: 26px; height: 22px;
+  border-radius: 50% 50% 45% 45%;
+  background:
+    radial-gradient(circle at 30% 55%, #222 2px, transparent 3px),
+    radial-gradient(circle at 70% 55%, #222 2px, transparent 3px),
+    var(--pelo-gato);
+}
+.gato::before, .gato::after {
+  content: ''; position: absolute; top: -8px;
+  width: 10px; height: 12px;
+  background: var(--pelo-gato);
+  clip-path: polygon(0 100%, 50% 0, 100% 100%);
+}
+.gato::before { left: 1px; }
+.gato::after  { right: 1px; }
+
+.corpo-nave {
+  position: absolute; bottom: 8px; left: 10px;
+  width: 44px; height: 44px;
+  border-radius: 22px 22px 6px 6px;
+  background: linear-gradient(90deg, #aab6e0, #f1f4ff 45%, #aab6e0);
+}
+.corpo-nave::before, .corpo-nave::after {
+  content: ''; position: absolute; bottom: -2px;
+  width: 14px; height: 26px;
+  background: var(--destaque);
+}
+.corpo-nave::before { left: -11px; border-radius: 12px 0 0 4px; }
+.corpo-nave::after  { right: -11px; border-radius: 0 12px 4px 0; }
+
+.chama {
+  position: absolute; bottom: -10px; left: 50%;
+  width: 14px; height: 20px;
+  margin-left: -7px;
+  border-radius: 50% 50% 50% 50% / 20% 20% 80% 80%;
+  background: linear-gradient(#ffe066, #ff7a3d 60%, transparent);
+  animation: queimar .18s ease-in-out infinite alternate;
+}
+@keyframes queimar { to { transform: scaleY(1.35); opacity: .8; } }
+
+/* ===== Controles (toque) ===== */
+.controles { display: flex; gap: 6px; padding: 8px; background: var(--moldura); }
+.controles button {
+  flex: 1;
+  padding: 14px 0;
+  font: 700 1.3rem 'Fredoka', 'Trebuchet MS', sans-serif;
+  color: #fff;
+  background: #3a3a7a;
+  border: 0;
+  border-radius: 14px;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+.controles .atirar { flex: 2; background: var(--destaque); }
+.controles button:active { filter: brightness(.8); }
+.controles button:focus-visible { outline: 3px solid var(--pelo-gato); outline-offset: 2px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .inimigo, .chama { animation: none; }
+}
+
+/* Rato derrotado some, mas o espaço dele na grade continua */
+.inimigo.morto { visibility: hidden; }
