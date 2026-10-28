@@ -2,45 +2,145 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- TROQUE "SEU NOME" pelo seu nome (requisito da atividade) -->
-  <title>Gato Astronauta – SEU NOME</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#090d25">
+  <meta name="description" content="Gato Astronauta: uma aventura espacial com ondas de ratinhos alienígenas, poderes e chefes cósmicos.">
+  <title>Gato Astronauta — Edição Cósmica</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <main id="jogo">
-
-    <header class="placar">
-      <div class="placar-item">⭐ <span id="pontos">0</span></div>
-      <h1>Gato Astronauta</h1>
-      <div class="placar-item" id="vidas" aria-label="Vidas">❤️❤️❤️</div>
+  <div class="page-shell">
+    <header class="topbar">
+      <a class="brand" href="#topo" aria-label="Gato Astronauta, início">
+        <span class="brand-mark" aria-hidden="true">✦</span>
+        <span class="brand-copy">
+          <span class="eyebrow">MISSÃO INTERGALÁCTICA</span>
+          <span class="brand-name">GATO <span>ASTRONAUTA</span></span>
+        </span>
+      </a>
+      <div class="header-actions">
+        <button id="sound-toggle" class="icon-button" type="button" aria-pressed="true" title="Desativar sons">
+          <span id="sound-icon" aria-hidden="true">♫</span><span class="button-word">Sons</span>
+        </button>
+        <button id="pause-button" class="pause-button" type="button" disabled><span aria-hidden="true">Ⅱ</span> Pausar</button>
+      </div>
     </header>
 
-    <section id="cenario">
-      <div class="planeta"></div>
-
-      <div class="frota">
-        <div class="inimigo"></div><div class="inimigo"></div><div class="inimigo"></div><div class="inimigo"></div><div class="inimigo"></div>
-        <div class="inimigo"></div><div class="inimigo"></div><div class="inimigo"></div><div class="inimigo"></div><div class="inimigo"></div>
-        <div class="inimigo"></div><div class="inimigo"></div><div class="inimigo"></div><div class="inimigo"></div><div class="inimigo"></div>
-      </div>
-
-      <div id="nave">
-        <div class="cabine"><div class="gato"></div></div>
-        <div class="corpo-nave"></div>
-        <div class="chama"></div>
-      </div>
+    <section class="hud" aria-label="Informações da partida">
+      <article class="hud-card score-card">
+        <span class="hud-label"><span class="hud-icon">✦</span> PONTUAÇÃO</span>
+        <strong id="score">000000</strong>
+      </article>
+      <article class="hud-card lives-card">
+        <span class="hud-label"><span class="hud-icon">♥</span> ENERGIA DA NAVE</span>
+        <div id="lives" class="lives" aria-label="3 vidas">♥ ♥ ♥</div>
+      </article>
+      <article class="hud-card wave-card">
+        <span class="hud-label"><span class="hud-icon">◎</span> SETOR</span>
+        <strong id="wave">01</strong>
+      </article>
+      <article class="hud-card best-card">
+        <span class="hud-label"><span class="hud-icon">♛</span> RECORDE</span>
+        <strong id="best">000000</strong>
+      </article>
     </section>
 
-    <div class="controles">
-      <button type="button" id="btn-esq" aria-label="Esquerda">◀</button>
-      <button type="button" id="btn-atirar" class="atirar">Atirar</button>
-      <button type="button" id="btn-dir" aria-label="Direita">▶</button>
-    </div>
-  </main>
+    <main id="topo" class="game-layout">
+      <section class="game-panel" aria-label="Área do jogo">
+        <div class="game-topline">
+          <span class="online-dot"></span><span id="mission-status">SISTEMA PRONTO</span>
+          <span class="topline-divider">/</span><span id="power-status">SEM PODER ATIVO</span>
+          <span class="topline-spacer"></span><span class="version-tag">COSMIC BUILD 2.0</span>
+        </div>
+        <div id="stage" class="stage">
+          <canvas id="game-canvas" width="960" height="600" aria-label="Jogo Gato Astronauta. Use as setas ou A e D para mover e espaço para atirar." role="img"></canvas>
+          <div class="stage-vignette" aria-hidden="true"></div>
+          <div class="scanline-overlay" aria-hidden="true"></div>
+
+          <div id="menu-screen" class="screen-layer active">
+            <div class="screen-card intro-card">
+              <div class="mini-orbit" aria-hidden="true"><span>🐱</span><i>✦</i><b>·</b></div>
+              <p class="screen-kicker">O UNIVERSO PRECISA DE VOCÊ</p>
+              <h2>Preparar.<br><span>Patinhas à obra!</span></h2>
+              <p class="screen-description">Pilote sua nave, enfrente a frota de ratinhos cósmicos e mostre quem manda nesta galáxia.</p>
+              <div class="feature-row">
+                <span>⚡ Poderes</span><span>👾 Chefes</span><span>🏆 Recordes</span>
+              </div>
+              <button id="start-button" class="primary-button" type="button">INICIAR MISSÃO <span aria-hidden="true">➜</span></button>
+              <p class="control-hint"><kbd>←</kbd> <kbd>→</kbd> mover <span>•</span> <kbd>ESPAÇO</kbd> atirar</p>
+            </div>
+            <div class="corner-note note-left">SETOR 7G<br><b>ÓRBITA FELINA</b></div>
+            <div class="corner-note note-right">MISSÃO<br><b>DEFENDER A GALÁXIA</b></div>
+          </div>
+
+          <div id="pause-screen" class="screen-layer">
+            <div class="screen-card compact-card">
+              <div class="screen-symbol pause-symbol">Ⅱ</div>
+              <p class="screen-kicker">PAUSA ORBITAL</p>
+              <h2>Respire, capitão.</h2>
+              <p class="screen-description">Os ratinhos também estão tirando uma soneca. A galáxia espera por você.</p>
+              <button id="resume-button" class="primary-button" type="button">CONTINUAR <span aria-hidden="true">▶</span></button>
+              <button id="pause-restart-button" class="secondary-button" type="button">Recomeçar missão</button>
+            </div>
+          </div>
+
+          <div id="end-screen" class="screen-layer">
+            <div class="screen-card compact-card">
+              <div id="end-symbol" class="screen-symbol">✦</div>
+              <p id="end-kicker" class="screen-kicker">RELATÓRIO DA MISSÃO</p>
+              <h2 id="end-title">Fim de jogo</h2>
+              <p id="end-message" class="screen-description">A nave precisa de uma revisão. Tente novamente!</p>
+              <div class="result-stats">
+                <div><span>PONTUAÇÃO</span><strong id="end-score">000000</strong></div>
+                <div><span>SETOR ALCANÇADO</span><strong id="end-wave">01</strong></div>
+              </div>
+              <button id="restart-button" class="primary-button" type="button">JOGAR NOVAMENTE <span aria-hidden="true">↻</span></button>
+              <button id="menu-button" class="secondary-button" type="button">Voltar à tela inicial</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="mobile-controls" aria-label="Controles de toque">
+          <button id="btn-esq" class="touch-button move-button" type="button" aria-label="Mover para a esquerda">◀</button>
+          <button id="btn-atirar" class="touch-button fire-button" type="button" aria-label="Atirar"><span>✦</span><small>ATIRAR</small></button>
+          <button id="btn-dir" class="touch-button move-button" type="button" aria-label="Mover para a direita">▶</button>
+        </div>
+        <div class="game-footer">
+          <p><span class="footer-key">⌨</span> <b>PC:</b> setas ou A/D para mover · espaço para atirar · P para pausar</p>
+          <p class="footer-tip"><span>✧</span> Colete poderes para sobreviver mais tempo!</p>
+        </div>
+      </section>
+
+      <aside class="side-panel">
+        <section class="side-card mission-card">
+          <div class="side-card-heading"><span class="heading-icon">✦</span><h3>MISSÃO ATUAL</h3></div>
+          <p id="mission-title" class="mission-title">Patrulha estelar</p>
+          <p id="mission-copy" class="side-copy">Elimine os invasores antes que alcancem a sua nave.</p>
+          <div class="mission-divider"></div>
+          <div class="objective-line"><span>INIMIGOS RESTANTES</span><strong id="remaining">21</strong></div>
+          <div class="progress-track"><div id="enemy-progress" class="progress-fill"></div></div>
+          <div class="objective-line objective-bottom"><span>PRÓXIMO CHEFE</span><strong id="boss-countdown">SETOR 04</strong></div>
+        </section>
+
+        <section class="side-card power-card">
+          <div class="side-card-heading"><span class="heading-icon power-icon">ϟ</span><h3>TECNOLOGIA FELINA</h3></div>
+          <div class="power-item"><span class="power-badge rapid-badge">ϟ</span><div><strong>Disparo turbo</strong><p>Atire muito mais rápido.</p></div></div>
+          <div class="power-item"><span class="power-badge shield-badge">⬡</span><div><strong>Escudo de órbita</strong><p>Bloqueia um impacto.</p></div></div>
+          <div class="power-item"><span class="power-badge heart-badge">♥</span><div><strong>Vida extra</strong><p>Recupere uma vida perdida.</p></div></div>
+        </section>
+
+        <section class="tip-card">
+          <span class="tip-sparkle">✧</span>
+          <div><strong>DICA DO CAPITÃO</strong><p>Não fique parado! Os invasores ficam mais rápidos a cada setor.</p></div>
+        </section>
+      </aside>
+    </main>
+
+    <footer class="page-footer"><span>✦ GATO ASTRONAUTA</span><span>FEITO PARA EXPLORADORES DE TODAS AS GALÁXIAS</span><span>VERSÃO 2.0</span></footer>
+  </div>
   <script src="script.js"></script>
 </body>
 </html>
